@@ -1,0 +1,14 @@
+steps:
+  - label: ":bazel: Build"
+    command:
+      - curl -sSL https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o /usr/local/bin/bazel
+      - chmod +x /usr/local/bin/bazel
+      - bazel build //...
+
+  - label: ":bazel: Test"
+    command:
+      - curl -sSL https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o /usr/local/bin/bazel
+      - chmod +x /usr/local/bin/bazel
+      - bazel test //... --test_output=errors
+    artifact_paths:
+      - "bazel-testlogs/**/test.xml"
