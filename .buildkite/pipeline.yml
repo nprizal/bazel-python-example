@@ -11,13 +11,20 @@ steps:
       - chmod +x /usr/local/bin/bazel
       - bazel query 'tests(//...)' 2>/dev/null > test-selectors.txt
       - bktec run --selector-file test-selectors.txt
+      # bazel-testlogs is a symlink into Bazel's output base, and the
+      # test-collector plugin's glob doesn't follow symlinked directories,
+      # so copy (dereferencing with -L) the XML files to a real path first.
+      - mkdir -p test-results && cp -rL bazel-testlogs/. test-results/
     parallelism: 2
     plugins:
       - tests#v1.0.0:
           test-runner: custom
           debug_enabled: true
           test-cmd: "bazel test --test_output=errors {{testExamples}}"
+      - test-collector#v1.11.0:
+          format: junit
+          files: "test-results/**/test.xml"
     artifact_paths:
-      - "bazel-testlogs/**/test.xml"
+      - "test-results/**/test.xml"
     env:
       BUILDKITE_TEST_ENGINE_SELECTOR_SPLITTING: true
