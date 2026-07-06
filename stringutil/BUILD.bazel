@@ -1,0 +1,38 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+py_library(
+    name = "stringutil",
+    srcs = ["stringutil.py"],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)
+
+py_test(
+    name = "stringutil_test",
+    srcs = [
+        "stringutil_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :stringutil_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":stringutil",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "stringutil_palindrome_test",
+    srcs = [
+        "stringutil_palindrome_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :stringutil_palindrome_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":stringutil",
+        "@pip//pytest",
+    ],
+)

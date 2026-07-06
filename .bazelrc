@@ -1,0 +1,5 @@
+# Show full test output when a test fails.
+test --test_output=errors
+
+# Use Bzlmod for dependency resolution (default in Bazel 7+, set explicitly).
+common --enable_bzlmod

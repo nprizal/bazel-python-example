@@ -1,0 +1,90 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+py_library(
+    name = "calculator",
+    srcs = ["calculator.py"],
+    # Imports are resolved relative to the repo root, so test modules can
+    # do `from calculator import calculator`.
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)
+
+py_test(
+    name = "calculator_test",
+    srcs = [
+        "calculator_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :calculator_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":calculator",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "calculator_divide_test",
+    srcs = [
+        "calculator_divide_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :calculator_divide_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":calculator",
+        "@pip//pytest",
+    ],
+)
+
+# The same source file (calculator_modes_test.py) belongs to two targets,
+# each running it under a different CALC_MODE. Both show up as separate
+# selectors, so bktec splits them independently.
+py_test(
+    name = "calculator_modes_int_test",
+    srcs = [
+        "calculator_modes_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :calculator_modes_test.py)"],
+    env = {"CALC_MODE": "int"},
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":calculator",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "calculator_modes_float_test",
+    srcs = [
+        "calculator_modes_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :calculator_modes_test.py)"],
+    env = {"CALC_MODE": "float"},
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":calculator",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "calculator_props_test",
+    srcs = [
+        "calculator_props_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :calculator_props_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":calculator",
+        "@pip//pytest",
+    ],
+)

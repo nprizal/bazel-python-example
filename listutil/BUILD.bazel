@@ -1,0 +1,38 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+py_library(
+    name = "listutil",
+    srcs = ["listutil.py"],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)
+
+py_test(
+    name = "listutil_test",
+    srcs = [
+        "listutil_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :listutil_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":listutil",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "listutil_chunk_test",
+    srcs = [
+        "listutil_chunk_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :listutil_chunk_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":listutil",
+        "@pip//pytest",
+    ],
+)

@@ -1,0 +1,38 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+py_library(
+    name = "mathutil",
+    srcs = ["mathutil.py"],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)
+
+py_test(
+    name = "mathutil_test",
+    srcs = [
+        "mathutil_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :mathutil_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":mathutil",
+        "@pip//pytest",
+    ],
+)
+
+py_test(
+    name = "mathutil_prime_test",
+    srcs = [
+        "mathutil_prime_test.py",
+        "//tools:pytest_main.py",
+    ],
+    args = ["$(location :mathutil_prime_test.py)"],
+    imports = [".."],
+    main = "//tools:pytest_main.py",
+    deps = [
+        ":mathutil",
+        "@pip//pytest",
+    ],
+)
