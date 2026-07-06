@@ -9,6 +9,15 @@ steps:
     command:
       - curl -sSL https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o /usr/local/bin/bazel
       - chmod +x /usr/local/bin/bazel
-      - bazel test //... --test_output=errors
+      - bazel query 'tests(//...)' 2>/dev/null > test-selectors.txt
+      - bktec run --selector-file test-selectors.txt
+    parallelism: 2
+    plugins:
+      - tests#v1.0.0:
+          test-runner: custom
+          debug_enabled: true
+          test-cmd: "bazel test --test_output=errors {{testExamples}}"
     artifact_paths:
       - "bazel-testlogs/**/test.xml"
+    env:
+      BUILDKITE_TEST_ENGINE_SELECTOR_SPLITTING: true
