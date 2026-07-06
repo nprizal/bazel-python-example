@@ -11,9 +11,11 @@ py_test(
     name = "stringutil_test",
     srcs = [
         "stringutil_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :stringutil_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//stringutil:stringutil_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -26,9 +28,11 @@ py_test(
     name = "stringutil_palindrome_test",
     srcs = [
         "stringutil_palindrome_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :stringutil_palindrome_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//stringutil:stringutil_palindrome_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [

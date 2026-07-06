@@ -1,2 +1,4 @@
 # Root package. Library and test targets live in the subpackages
 # (calculator/ and stringutil/). Nothing to build at the root itself.
+
+exports_files(["conftest.py"])

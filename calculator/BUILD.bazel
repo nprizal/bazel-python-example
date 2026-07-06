@@ -13,9 +13,11 @@ py_test(
     name = "calculator_test",
     srcs = [
         "calculator_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :calculator_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//calculator:calculator_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -28,9 +30,11 @@ py_test(
     name = "calculator_divide_test",
     srcs = [
         "calculator_divide_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :calculator_divide_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//calculator:calculator_divide_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -46,10 +50,14 @@ py_test(
     name = "calculator_modes_int_test",
     srcs = [
         "calculator_modes_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :calculator_modes_test.py)"],
-    env = {"CALC_MODE": "int"},
+    env = {
+        "CALC_MODE": "int",
+        "TEST_SELECTOR_PRIMARY": "//calculator:calculator_modes_int_test",
+    },
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -62,10 +70,14 @@ py_test(
     name = "calculator_modes_float_test",
     srcs = [
         "calculator_modes_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :calculator_modes_test.py)"],
-    env = {"CALC_MODE": "float"},
+    env = {
+        "CALC_MODE": "float",
+        "TEST_SELECTOR_PRIMARY": "//calculator:calculator_modes_float_test",
+    },
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -78,9 +90,11 @@ py_test(
     name = "calculator_props_test",
     srcs = [
         "calculator_props_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :calculator_props_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//calculator:calculator_props_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [

@@ -11,9 +11,11 @@ py_test(
     name = "listutil_test",
     srcs = [
         "listutil_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :listutil_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//listutil:listutil_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -26,9 +28,11 @@ py_test(
     name = "listutil_chunk_test",
     srcs = [
         "listutil_chunk_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :listutil_chunk_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//listutil:listutil_chunk_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [

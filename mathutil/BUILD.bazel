@@ -11,9 +11,11 @@ py_test(
     name = "mathutil_test",
     srcs = [
         "mathutil_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :mathutil_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//mathutil:mathutil_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
@@ -26,9 +28,11 @@ py_test(
     name = "mathutil_prime_test",
     srcs = [
         "mathutil_prime_test.py",
+        "//:conftest.py",
         "//tools:pytest_main.py",
     ],
     args = ["$(location :mathutil_prime_test.py)"],
+    env = {"TEST_SELECTOR_PRIMARY": "//mathutil:mathutil_prime_test"},
     imports = [".."],
     main = "//tools:pytest_main.py",
     deps = [
