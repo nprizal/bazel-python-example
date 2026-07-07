@@ -6,6 +6,9 @@ and this hook does nothing.
 """
 
 import os
+import time
+
+import pytest
 
 
 def pytest_collection_modifyitems(items):
@@ -14,3 +17,11 @@ def pytest_collection_modifyitems(items):
         return
     for item in items:
         item.user_properties.append(("buildkite.tag.test.selector.primary", target))
+
+
+@pytest.fixture(autouse=True)
+def _simulate_test_duration():
+    # Real assertions here run in ~0ms, which makes reported durations
+    # uninteresting for demos (e.g. duration-based test splitting). Sleep
+    # a bit so each test reports a non-zero, semi-realistic duration.
+    time.sleep(0.2)
