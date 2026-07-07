@@ -26,5 +26,6 @@ steps:
           files: "test-results/**/test.xml"
     artifact_paths:
       - "test-results/**/test.xml"
+      - "test-selectors.txt"
     env:
       BUILDKITE_TEST_ENGINE_SELECTOR_SPLITTING: true
